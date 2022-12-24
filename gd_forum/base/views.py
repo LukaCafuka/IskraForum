@@ -25,6 +25,9 @@ def logout_user(request):
     logout(request)
     return redirect('home')
     
+def login_user(request):
+    pass
+
 def home (request):
     threads = Thread.objects.all()
     users = User.objects.all()
