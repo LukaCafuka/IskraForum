@@ -1,0 +1,174 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}IskraForum{% endblock title %}
+
+{% block css %}
+    body {
+        color: #dddddd !important;
+    }
+
+    .title h3{
+        margin: 1.2em 0 .6em 0 !important;
+        font-weight: 600 !important;
+        text-align: center !important;
+    }
+    .comm-list .comm-title {
+        font-weight: 400 !important;
+    }
+    .comm-list .comm {
+        cursor: pointer !important;
+        text-decoration: none !important;
+    }
+    .card {
+        background-color: #19242e !important;
+        cursor: pointer;
+        text-decoration: none;
+        color: #dddddd !important;
+    }
+    .card:hover {
+        background-color: #17212b !important;
+    }
+    .card .comm-desc {
+        font-size: .8em !important;
+    }
+    .card .comn-title {
+        font-weight: 700 !important;
+        font-size: 1.23em !important;
+    }
+    .card .comm-header {
+        font-size: .9em !important;
+        color: #7691AB !important;
+        font-weight: 400 !important;
+        background-image: linear-gradient(180deg, #151c2311, #293d4d66);
+        border-bottom: solid 1.5px #283A45 !important;
+        letter-spacing: 2px !important;
+        text-align: center !important;
+    }
+    .col-lg-3:first-of-type {
+        //background-color: #101518 !important; {# isključeno #}
+    }
+    .thread-title {
+        margin: .4em 0 1em 0 !important;
+        font-weight: 700 !important;
+        font-size: 1.35em !important;
+    }
+    .thread-text {
+        //background-color: #233543 !important;
+        //padding: 1em .8em;
+        color: #dddddd !important;
+        border-radius: 7px !important;
+        font-size: .95em !important;
+        font-weight: 400 !important;
+    }
+    .thread-footer {
+        color: #7691AB !important;
+        background-image: linear-gradient(360deg, #151c2311, #293d4d66);
+        background-color: #151c23 !important;
+        border-top: solid 1px #283A45 !important;
+        font-weight: 500 !important;
+        letter-spacing: 1px !important;
+    }
+    .user-list .username {
+        margin: 0 .5em !important;
+    }
+    .user-list .usr-avatar {
+        border-radius: 500px !important;
+        border: solid 2px #283A45 !important;
+    }
+    .user-list .user {
+        background-image: linear-gradient(360deg, #151c2311, #293d4d66);
+    }
+{% endblock css %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2">
+                
+                    <div class="container-fluid inner-container">
+                        <div class="row">
+                            <div class="col-md-12 title">
+                                <h3 class="">Categories</h3>
+                            </div>
+                            <div class="col-md-12 comm-list"> {# struktura community-a #}
+                                <a class="card mb-2" href="#category">
+                                    <div class="card-header comm-header">Category</div>
+                                    <div class="card-body">
+                                      <h5 class="card-title comn-title">Pets and animals</h5>
+                                      <p class="card-text comm-desc">This is a category that welcomes all animal and pet lovers, feel free to post anything related to animals!</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-12 comm-list"> {# struktura community-a #}
+                                <a class="card mb-2" href="#category">
+                                    <div class="card-header comm-header">Category</div>
+                                    <div class="card-body">
+                                      <h5 class="card-title comn-title">Web design</h5>
+                                      <p class="card-text comm-desc">From plain CSS and HTML to complex frameworks like React. Web design welcomes all people wanting to find out more about the front-end part of web</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-lg-8">
+                 <div class="container-fluid inner-container">
+                        <div class="row communities">
+                            <div class="col-md-12 title">
+                                <h3 class="">Newest threads</h3>
+                            </div>
+
+                                <div class="col-md-12 thread-list"> {# struktura community-a #}
+                                    <a class="card mb-2" href="#thread">
+                                        
+                                        <div class="card-body">
+                                          <h5 class="card-title thread-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, voluptatem?</h5>
+                                          <p class="card-text thread-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo porro dolores et blanditiis saepe dignissimos hic voluptatem obcaecati, libero, autem fuga incidunt nisi nostrum atque molestias at laborum nulla eveniet temporibus! Aliquam sed similique rem? Placeat necessitatibus eveniet adipisci veniam fuga soluta temporibus laboriosam omnis iste corrupti cum beatae, porro itaque, amet, non error nihil nemo! Dolore a, repellat architecto nulla labore porro itaque odio officiis, impedit reiciendis debitis. Reprehenderit ipsam tempora quos, repellendus earum dolorem quis molestiae architecto totam perferendis laboriosam assumenda nam doloremque corporis sint vero sequi similique expedita veniam harum! Ipsa iusto minima cumque repudiandae ullam rem.</p>
+                                        </div>
+                                        <div class="card-footer thread-footer">Posted by USER date XX/XX/XXXX</div>
+                                    </a>
+                                    <a class="card mb-2" href="#thread">
+                                        
+                                        <div class="card-body">
+                                          <h5 class="card-title thread-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo eius laudantium quidem iusto, quod omnis?</h5>
+                                          <p class="card-text thread-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis aut hic suscipit! Ratione iure fuga accusamus natus animi a facilis?</p>
+                                        </div>
+                                        <div class="card-footer thread-footer">Posted by USER date XX/XX/XXXX</div>
+                                    </a>
+                                    {% for thread in threads reversed %}
+                                    <a class="card mb-2" href="/thread/{{thread.id}}">
+                                        
+                                        <div class="card-body">
+                                          <h5 class="card-title thread-title">{{ thread.title }}</h5>
+                                          <p class="card-text thread-text">{{ thread.description }}</p>
+                                        </div>
+                                        <div class="card-footer thread-footer">Posted on {{ thread.created|date:'d.m.Y H:i' }}</div>
+                                    </a>
+                                    {% endfor %}
+                                </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="container-fluid inner-container">
+                    <div class="row communities">
+                        <div class="col-md-12 title">
+                            <h3 class="">Active Users</h3>
+                        </div>
+                            {% for user in users %}
+                            <div class="col-md-12 user-list">
+                                <a href="/user/{{user.username}}" class="card mb-2 user">
+                                    <div class="card-body d-flex p-2 justify-content-start align-items-center">
+                                        <img class="usr-avatar" src="{% static 'base/img/avatar.png' %}" alt="" width="35px" height="35px">
+                                        <p class="username">{{ user.username }}</p>
+                                    </div>
+                                </a>
+                            </div>
+                            {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

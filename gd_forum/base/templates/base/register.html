@@ -1,0 +1,28 @@
+{% extends 'base/base.html' %}
+
+{% block css %}
+    h1,
+    form,
+    button,
+    p {
+        color: #dddddd !important;
+    }
+{% endblock css %}
+
+{% block title %}Create an Account{% endblock title %}
+
+{% if form.errors %}
+<p>There was an error</p>
+{% endif %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="register">Register</h1>
+        <form method="POST" action="">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-success" type="submit">Register</button>
+        </form>
+        <p class="text-center">If you already have an account, <a href="/login">login</a> instead.</p>
+    </div>
+{% endblock content %}
