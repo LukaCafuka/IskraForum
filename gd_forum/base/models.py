@@ -5,15 +5,15 @@ from django.contrib.auth.models import User
 class Thread(models.Model):
     title = models.CharField(max_length=150)
     description = models.TextField()
-    #uploader =
-    #category =
+    uploader = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
+    category = models.ForeignKey("Category", verbose_name=("Category"), null=True, on_delete=models.DO_NOTHING)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return str(self.title)
 
 class Category(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     description = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
 
