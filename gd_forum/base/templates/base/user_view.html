@@ -1,0 +1,17 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}User {{user.username}}{% endblock title %}
+
+{% block css %}
+body {
+    color: #dddddd !important;
+}
+{% endblock css %}
+
+{% block content %}
+
+<h1>{{user.username}}</h1>
+
+
+{% endblock content %}

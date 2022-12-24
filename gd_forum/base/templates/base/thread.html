@@ -1,0 +1,18 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}{{ thread.title }}{% endblock title %}
+
+{% block css %}
+    body {
+        color: #dddddd !important;
+    }
+{% endblock css %}
+
+
+
+{% block content %}
+    <h1>{{thread.title}}</h1>
+    <p>{{thread.description}}</p>
+    <h6>{{ thread.created|date:'d.m.Y H:i' }}</h6>
+{% endblock content %}

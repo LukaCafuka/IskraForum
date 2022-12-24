@@ -39,3 +39,17 @@ def home (request):
 
     }
     return render(request, 'base/index.html', context)
+
+def thread(request, pk):
+    thread = Thread.objects.get(id=pk)
+    context = {
+        'thread': thread,
+    }
+    return render(request, 'base/thread.html', context)
+
+def user_view(request, name):
+    user = User.objects.get(username=name)
+    context = {
+        'user': user,
+    }
+    return render(request, 'base/user_view.html', context)
