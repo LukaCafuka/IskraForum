@@ -3,7 +3,7 @@ from .forms import NewUserForm
 from django.contrib.auth.forms import UserCreationForm 
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
-from .models import Thread
+from .models import Thread, Category
 from django.contrib.auth.models import User
 # Create your views here.
 def register_user (request):
@@ -31,9 +31,11 @@ def login_user(request):
 def home (request):
     threads = Thread.objects.all()
     users = User.objects.all()
+    categories = Category.objects.all()
     context = {
         'threads': threads,
         'users': users,
+        'categories': categories,
 
     }
     return render(request, 'base/index.html', context)

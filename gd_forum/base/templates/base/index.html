@@ -92,23 +92,17 @@
                                 <h3 class="">Categories</h3>
                             </div>
                             <div class="col-md-12 comm-list"> {# struktura community-a #}
+                                {% for category in categories %}
                                 <a class="card mb-2" href="#category">
                                     <div class="card-header comm-header">Category</div>
                                     <div class="card-body">
-                                      <h5 class="card-title comn-title">Pets and animals</h5>
-                                      <p class="card-text comm-desc">This is a category that welcomes all animal and pet lovers, feel free to post anything related to animals!</p>
+                                      <h5 class="card-title comn-title">{{category.name}}</h5>
+                                      <p class="card-text comm-desc">{{category.description}}</p>
+                                      <!-- <p>{{category.created|date:'d.m.Y H:i'}}</p> **mogućnost ispisa datuma kreiranja -->
                                     </div>
                                 </a>
-                            </div>
-                            <div class="col-md-12 comm-list"> {# struktura community-a #}
-                                <a class="card mb-2" href="#category">
-                                    <div class="card-header comm-header">Category</div>
-                                    <div class="card-body">
-                                      <h5 class="card-title comn-title">Web design</h5>
-                                      <p class="card-text comm-desc">From plain CSS and HTML to complex frameworks like React. Web design welcomes all people wanting to find out more about the front-end part of web</p>
-                                    </div>
-                                </a>
-                            </div>
+                                {% endfor %}
+                            </div>                            
                         </div>
                     </div>
             </div>
@@ -120,22 +114,6 @@
                             </div>
 
                                 <div class="col-md-12 thread-list"> {# struktura community-a #}
-                                    <a class="card mb-2" href="#thread">
-                                        
-                                        <div class="card-body">
-                                          <h5 class="card-title thread-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore, voluptatem?</h5>
-                                          <p class="card-text thread-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo porro dolores et blanditiis saepe dignissimos hic voluptatem obcaecati, libero, autem fuga incidunt nisi nostrum atque molestias at laborum nulla eveniet temporibus! Aliquam sed similique rem? Placeat necessitatibus eveniet adipisci veniam fuga soluta temporibus laboriosam omnis iste corrupti cum beatae, porro itaque, amet, non error nihil nemo! Dolore a, repellat architecto nulla labore porro itaque odio officiis, impedit reiciendis debitis. Reprehenderit ipsam tempora quos, repellendus earum dolorem quis molestiae architecto totam perferendis laboriosam assumenda nam doloremque corporis sint vero sequi similique expedita veniam harum! Ipsa iusto minima cumque repudiandae ullam rem.</p>
-                                        </div>
-                                        <div class="card-footer thread-footer">Posted by USER date XX/XX/XXXX</div>
-                                    </a>
-                                    <a class="card mb-2" href="#thread">
-                                        
-                                        <div class="card-body">
-                                          <h5 class="card-title thread-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo eius laudantium quidem iusto, quod omnis?</h5>
-                                          <p class="card-text thread-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis aut hic suscipit! Ratione iure fuga accusamus natus animi a facilis?</p>
-                                        </div>
-                                        <div class="card-footer thread-footer">Posted by USER date XX/XX/XXXX</div>
-                                    </a>
                                     {% for thread in threads reversed %}
                                     <a class="card mb-2" href="/thread/{{thread.id}}">
                                         
