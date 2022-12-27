@@ -5,6 +5,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from .models import Thread, Category
 from django.contrib.auth.models import User
+from .forms import ThreadForm
 # Create your views here.
 def register_user (request):
     if request.method == "POST":
@@ -53,3 +54,16 @@ def user_view(request, name):
         'user': user,
     }
     return render(request, 'base/user_view.html', context)
+
+def create_thread(request):
+    form = ThreadForm()
+    if request.method == 'POST':
+        form = ThreadForm(request.POST)
+        if form.is_valid:
+            formID = form.save()
+            return redirect ('home')
+    context = {
+        'form': form,
+
+    }
+    return render(request, 'base/thread_form.html', context)

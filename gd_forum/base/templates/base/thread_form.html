@@ -1,0 +1,25 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Create a thread{% endblock title %}
+
+{% block css %}
+p {
+    color: #dddddd !important;
+}
+{% endblock css %}
+
+{% block content %}
+
+<div class="container">
+    {% if user.is_authenticated %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Create">
+    </form>
+    {% endif %}
+</div>
+
+
+{% endblock content %}
