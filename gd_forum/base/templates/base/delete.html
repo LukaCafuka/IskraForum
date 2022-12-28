@@ -1,0 +1,25 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Confirmation{% endblock title %}
+
+{% block css %}
+h3 {
+    color: #dddddd !important;
+}
+.delete-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+{% endblock css %}
+
+{% block content %}
+<div class="container delete-container">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <h3>Are you sure you want to delete "{{obj}}"?</h3>
+        <input type="submit" class="btn btn-danger" value="Delete">
+        <a href="{{request.META.HTTP_REFERER}}" class="btn btn-primary">Go back</a>
+    </form>
+</div>
+{% endblock content %}

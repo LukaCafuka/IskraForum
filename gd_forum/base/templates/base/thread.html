@@ -17,5 +17,6 @@
     <p>{{thread.description}}</p>
     <h6>{{ thread.created|date:'d.m.Y H:i' }}</h6>
     <h6>{{ thread.uploader.username }}</h6>
+    <a href="{% url 'delete-thread' thread.id %}" class="btn btn-danger">Delete</a>
 </div>
 {% endblock content %}

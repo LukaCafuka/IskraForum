@@ -67,3 +67,10 @@ def create_thread(request):
 
     }
     return render(request, 'base/thread_form.html', context)
+
+def delete_thread(request, pk):
+    thread = Thread.objects.get(id=pk)
+    if request.method == "POST":
+        thread.delete()
+        return redirect ( 'home' )
+    return render(request, 'base/delete.html', {'obj': thread})
