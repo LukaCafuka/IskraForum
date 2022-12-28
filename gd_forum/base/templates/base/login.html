@@ -1,0 +1,29 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}Login{% endblock title %}
+
+{% block css %}
+    .container-login {
+        color: #dddddd !important;
+    }
+
+{% endblock css %}
+
+{% block content %}
+    <div class="container container-login w-50">
+        <form action="" method="POST" class="d-flex flex-column m-4">
+            {% csrf_token %}
+            <label for="username" class="m-1 h3">Username:</label>
+            <input type="text" name="username" id="username" placeholder="username" class="m-1">
+
+            <label for="username" class="m-1 h3">Password:</label>
+            <input type="password" name="password" id="password" placeholder="password" class="m-1">
+            <div class="wrap">
+                <input type="submit" value="Login" class="m-1 btn btn-primary">
+            </div>
+        </form>
+        <p class="m-4">You dont have and account? You can <a href="/register">register</a> here!</p>
+    </div>
+
+{% endblock content %}
