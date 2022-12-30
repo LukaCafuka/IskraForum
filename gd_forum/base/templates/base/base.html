@@ -17,6 +17,10 @@
       body {
         font-family: 'Fira Sans', sans-serif !important;
         background-color: #0e1215 !important;
+        position: relative !important;
+        min-height: 100vh !important;
+        display: flex !important;
+        flex-direction: column !important;
       }
 
 
@@ -85,6 +89,12 @@
       .btn-logout:hover {
           background-color: #95D6FF !important;
       }
+      .footer {
+        position:absolute !important;
+        bottom: 0% !important;
+        width: calc(100%) !important;
+        //margin-bottom: -8vh !important;
+      }
     </style>
     <link rel="stylesheet" href="{% static 'base/css/bootstrap.css' %}">
     <title>{% block title %}{% endblock title %}</title>
@@ -138,7 +148,7 @@
     {% endblock content %}
     <script src="{% static 'base/js/bootstrap.bundle.js' %}"></script>
     <div class="container-fluid">
-        <footer class="d-flex flex-wrap justify-content-center align-items-center py-3">
+        <footer class="footer d-flex flex-wrap justify-content-center align-items-center py-3">
           <div class="col-md-4 d-flex align-items-center justify-content-center">
             <span class="mb-3 mb-md-0 text-muted">© 2023 IskraForum</span>
           </div>

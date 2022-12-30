@@ -78,7 +78,7 @@
         background-color: #19242e !important;
         text-decoration: none;
         color: #dddddd !important;
-        margin: .1em .5em !important;
+        margin: 0vh 7.65vw;
     }
     .card .comm-desc {
         font-size: .8em !important;
@@ -105,7 +105,7 @@
     }
     .container-thread {
         margin-top: 2em !important;
-        margin-bottom: 1.5em !important;
+        margin-bottom: 5em !important;
     }
     .fade {
         backdrop-filter: blur(10px);
@@ -113,12 +113,22 @@
     .modal-content {
         background-color: #192129 !important;
     }
+    .close {
+        color: #fff; 
+        opacity: 1;
+    }
+    @media (max-width: 1199px) {
+        .card {
+
+            margin: 0vh 0vw;
+        }
+    }
 {% endblock css %}
 
 
 
 {% block content %}
-<div class="container container-thread">
+<div class="container-md container-thread">
 
     <div class="card mb-1">
         <div class="card-header thread-header">
@@ -144,7 +154,7 @@
                       <div class="modal-content">
                         <div class="modal-header">
                           <h1 class="modal-title fs-5" id="exampleModalLabel">Are you sure you want to delete "{{thread.title}}"?</h1>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                           You cannot undo this action!

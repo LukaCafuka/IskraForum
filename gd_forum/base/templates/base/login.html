@@ -4,50 +4,83 @@
 {% block title %}Login{% endblock title %}
 
 {% block css %}
-h1,
-form,
-button,
-p {
-    color: #dddddd !important;
-}
-.btn-success {
-    font-weight: 500 !important;
-    color: #222222 !important;
-    background-color: #6FAAD6 !important;
-    border-color: #6FAAD6 !important;
-    margin: .7em 0 0 0!important;
-}
-.btn-success:hover {
-    background-color: #95D6FF !important;
-}
-.card {
-    background-color: #192129 !important;
-    margin: 2vh 3vw;
-    padding: 2vw 3vh !important;
-}
-.register {
-    font-weight: 800 !important;
-    font-size: 2.4em !important;
-    text-align: center !important;
-}
-.form-label {
-    font-size: 1.2em !important;
-}
-.help-password p, .help-email {
-    color: #999999 !important;
-    font-weight: 300 !important;
-    font-size: .9rem !important;
-    margin-bottom: 0em !important; 
-}
-.form-control {
-    background-color: #0e1216 !important;
-    color: white !important;
-    border: solid 1px #444444 !important;
-}
+    h1,
+    form,
+    button,
+    p {
+        color: #dddddd !important;
+    }
+    .btn-success {
+        font-weight: 500 !important;
+        color: #222222 !important;
+        background-color: #6FAAD6 !important;
+        border-color: #6FAAD6 !important;
+        margin: .7em 0 2em 0!important;
+        font-weight: 700 !important;
+        font-size: 1.2em !important;
+    }
+    .btn-success:hover {
+        background-color: #95D6FF !important;
+    }
+    .card {
+        background-color: #192129 !important;
+        margin: 2vh 12vw;
+        padding: 2vw 3vh !important;
+    }
+    .register {
+        font-weight: 800 !important;
+        font-size: 1.8rem !important;
+        text-align: center !important;
+        color: #dddddd !important;
+    }
+    .form-label {
+        font-size: 1.2em !important;
+    }
+    .help-password p, .help-email {
+        color: #999999 !important;
+        font-weight: 300 !important;
+        font-size: .9rem !important;
+        margin-bottom: 0em !important; 
+    }
+    .form-control {
+        background-color: #0e1216 !important;
+        color: white !important;
+        border: solid 1px #444444 !important;
+    }
 
-.account-info {
-    margin: 0 !important;
-}
+    .account-info {
+        margin: 0 !important;
+    }
+
+    .wrap {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+
+    @media (max-width: 767px) {
+        .btn-success {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            width: 100% !important;
+            margin-bottom: 2em !important;
+            font-size: 1.2em !important;
+        }
+        .wrap {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+        }
+        .register {
+            margin: .5em 0 !important;
+        }
+        .card {
+            background-color: #192129 !important;
+            margin: 2vh 3vw;
+            padding: 2vw 3vh !important;
+        }
+    }
 
 {% endblock css %}
 
@@ -58,20 +91,21 @@ p {
 
             <div class="container mt-5">
                 <div class="card mt-5">
-                    <h1 class="register">Login</h1>
+                    <h2 class="register">Login</h2>
                     <form method="POST" action="" class="register-form">
                         {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Username</label>
-                            <input type="text" name="username" id="username" placeholder="username" class="form-control">
+                        <div class="mb-3 form-floating">
+                            <input type="text" name="username" id="floatingInput" placeholder="username" class="form-control">
+                            <label for="floatingInput" class="form-label">Username</label>
                         </div>
-                        <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Password</label>
-                            <input type="password" name="password" id="password" placeholder="password" class="form-control">
+                        <div class="mb-3 form-floating">
+                            <input type="password" name="password" id="floatingInput" placeholder="password" class="form-control">
+                            <label for="floatingInput" class="form-label">Password</label>
                         </div>
-
-                        <button class="btn btn-success" type="submit">Login</button>
-                    </form>
+                        <div class="wrap">
+                            <button class="btn btn-success" type="submit">Login</button>
+                        </div>
+                    </form>             
                     <p class="text-center account-info">If you don't have an account, <a href="/register">register</a> instead.</p>
                 </div>
             </div>
