@@ -12,9 +12,37 @@
         color: #222222 !important;
         background-color: #6FAAD6 !important;
         border-color: #6FAAD6 !important;
+        margin: .7em 0 0 0!important;
     }
     .btn-success:hover {
         background-color: #95D6FF !important;
+    }
+    .card {
+        background-color: #192129 !important;
+        margin: 2vh 3.65vw;
+        padding: 2vw 3vh !important;
+    }
+    .register {
+        font-weight: 800 !important;
+        font-size: 2.4em !important;
+        text-align: center !important;
+    }
+    .form-label {
+        font-size: 1.2em !important;
+    }
+    .help-password p, .help-email {
+        color: #999999 !important;
+        font-weight: 300 !important;
+        font-size: .9rem !important;
+        margin-bottom: 0em !important; 
+    }
+    .form-control {
+        background-color: #0e1216 !important;
+        color: white !important;
+        border: solid 1px #444444 !important;
+    }
+    .account-info {
+        margin: 0 !important;
     }
 {% endblock css %}
 
@@ -26,12 +54,36 @@
 
 {% block content %}
     <div class="container mt-5">
-        <h1 class="register">Register</h1>
-        <form method="POST" action="">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button class="btn btn-success" type="submit">Register</button>
-        </form>
-        <p class="text-center">If you already have an account, <a href="/login">login</a> instead.</p>
+        <div class="card mt-5">
+            <h1 class="register">Register</h1>
+            <form method="POST" action="" class="register-form">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Username</label>
+                    {{form.username}}
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    {{form.email}}
+                    <div id="emailHelp" class="form-text help-email">We'll never share your email with anyone else.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    {{form.password1}}
+                    <div id="passwordHelpBlock" class="form-text help-password">
+                        <p>Your password can't be similar to you other information</p>
+                        <p>It must contain at least 8 characters</p>
+                        <p>It can't be a commmonly used password</p>
+                        <p>Your password can't be entirely numeric</p>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password Confirmation</label>
+                    {{form.password2}}
+                </div>
+                <button class="btn btn-success" type="submit">Register</button>
+            </form>
+            <p class="text-center account-info">If you already have an account, <a href="/login">login</a> instead.</p>
+        </div>
     </div>
 {% endblock content %}

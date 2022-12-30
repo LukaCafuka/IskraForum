@@ -27,7 +27,7 @@
       }
 
       nav {
-        border-bottom: solid #293d4dcc 1px !important;
+        //border-bottom: solid #293d4dcc 1px !important;
       }
 
       nav a {
@@ -103,17 +103,12 @@
                 <a class="nav-link active" aria-current="page" href="/">Home</a>
               </li>
                 {% if user.is_authenticated %}
-                    <ul class="navbar-nav mr-2">
-                      <li class="nav-item dropdown-center">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          Welcome {{request.user}}
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark">
-                          <li><a class="dropdown-item" href="#">Profile</a></li>
-                          <li><a class="dropdown-item" href="#">Settings</a></li>
-                          <li><a class="dropdown-item" href="#">Notifications</a></li>
-                          <li><a class="dropdown-item btn-logout" href="/logout">Logout</a></li>
-                        </ul>
+                    <ul class="navbar-nav mr-2">          
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">Logout</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Profile</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link active btn btn-primary" aria-current="page" href="{% url 'create-thread' %}">Create a thread</a>
@@ -132,11 +127,12 @@
       </nav>
     </header>
     {% if messages %}
-      <ul class="messages">
+      <div class="messages alert alert-dark d-flex justify-content-center container w-25 m-6">
     {% for message in messages %}
-      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      <h6{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h6>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     {% endfor %}
-      </ul>
+      </div>
 {% endif %}
     {% block content %}
     {% endblock content %}

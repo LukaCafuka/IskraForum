@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from .forms import NewUserForm
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm 
 from django.contrib.auth.decorators import login_required
@@ -8,10 +7,11 @@ from django.contrib import messages
 from .models import Thread, Category
 from django.contrib.auth.models import User
 from .forms import ThreadForm
+from .forms import RegisterUserForm
 # Create your views here.
 def register_user (request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = RegisterUserForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data['username']
@@ -23,13 +23,14 @@ def register_user (request):
         else:
             messages.error(request, 'An error occurred during registration')
     else:
-        form = UserCreationForm()
+        form = RegisterUserForm()
     return render(request, 'base/register.html', context={'form': form})
 
 def logout_user(request):
     logout(request)
     return redirect('home')
-    
+
+
 def login_user(request):
     if request.user.is_authenticated:
         return redirect( 'home' )
@@ -85,10 +86,28 @@ def create_thread(request):
         form = ThreadForm(request.POST)
         if form.is_valid:
             formID = form.save()
-            return redirect ('home')
+            return redirect('home')
     context = {
         'form': form,
 
+    }
+    return render(request, 'base/thread_form.html', context)
+
+@login_required(login_url='login')
+def edit_thread(request, pk):
+    thread = Thread.objects.get(id=pk)
+    form = ThreadForm(instance=thread)
+    if request.user != thread.uploader:
+        return redirect ('home')
+
+    if request.method == 'POST':
+        form = ThreadForm(request.POST, instance=thread)
+        if form.is_valid():
+            form.save()
+            return redirect('thread', thread.id)
+    context = {
+        'form': form,
+        'thread': thread,
     }
     return render(request, 'base/thread_form.html', context)
 
@@ -102,3 +121,12 @@ def delete_thread(request, pk):
         thread.delete()
         return redirect ( 'home' )
     return render(request, 'base/delete.html', {'obj': thread})
+
+@login_required(login_url='login')
+def delete_thread_no_warning(request, pk):
+    thread = Thread.objects.get(id=pk)
+    if request.user == thread.uploader:
+        thread.delete()
+        return redirect('home')
+    else:
+        return redirect('thread', thread.id)

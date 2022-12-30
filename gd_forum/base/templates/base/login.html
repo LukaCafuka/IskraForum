@@ -4,26 +4,78 @@
 {% block title %}Login{% endblock title %}
 
 {% block css %}
-    .container-login {
-        color: #dddddd !important;
-    }
+h1,
+form,
+button,
+p {
+    color: #dddddd !important;
+}
+.btn-success {
+    font-weight: 500 !important;
+    color: #222222 !important;
+    background-color: #6FAAD6 !important;
+    border-color: #6FAAD6 !important;
+    margin: .7em 0 0 0!important;
+}
+.btn-success:hover {
+    background-color: #95D6FF !important;
+}
+.card {
+    background-color: #192129 !important;
+    margin: 2vh 3vw;
+    padding: 2vw 3vh !important;
+}
+.register {
+    font-weight: 800 !important;
+    font-size: 2.4em !important;
+    text-align: center !important;
+}
+.form-label {
+    font-size: 1.2em !important;
+}
+.help-password p, .help-email {
+    color: #999999 !important;
+    font-weight: 300 !important;
+    font-size: .9rem !important;
+    margin-bottom: 0em !important; 
+}
+.form-control {
+    background-color: #0e1216 !important;
+    color: white !important;
+    border: solid 1px #444444 !important;
+}
+
+.account-info {
+    margin: 0 !important;
+}
 
 {% endblock css %}
 
 {% block content %}
-    <div class="container container-login w-50">
-        <form action="" method="POST" class="d-flex flex-column m-4">
-            {% csrf_token %}
-            <label for="username" class="m-1 h3">Username:</label>
-            <input type="text" name="username" id="username" placeholder="username" class="m-1">
+    <div class="container container-login mt-5">
+        
+            {% csrf_token %}       
 
-            <label for="username" class="m-1 h3">Password:</label>
-            <input type="password" name="password" id="password" placeholder="password" class="m-1">
-            <div class="wrap">
-                <input type="submit" value="Login" class="m-1 btn btn-primary">
+            <div class="container mt-5">
+                <div class="card mt-5">
+                    <h1 class="register">Login</h1>
+                    <form method="POST" action="" class="register-form">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Username</label>
+                            <input type="text" name="username" id="username" placeholder="username" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Password</label>
+                            <input type="password" name="password" id="password" placeholder="password" class="form-control">
+                        </div>
+
+                        <button class="btn btn-success" type="submit">Login</button>
+                    </form>
+                    <p class="text-center account-info">If you don't have an account, <a href="/register">register</a> instead.</p>
+                </div>
             </div>
-        </form>
-        <p class="m-4">You dont have and account? You can <a href="/register">register</a> here!</p>
+        
     </div>
 
 {% endblock content %}
