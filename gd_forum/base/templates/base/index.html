@@ -127,7 +127,7 @@
                             </div>
                             <div class="col-md-12 comm-list"> {# struktura community-a #}
                                 {% for category in categories reversed %}
-                                <a class="card mb-2" href="#category">
+                                <a class="card mb-2" href="{% url 'home' %}?q={{category.name}}">
                                     <div class="card-header comm-header">Category</div>
                                     <div class="card-body">
                                       <h5 class="card-title comn-title">{{category.name}}</h5>

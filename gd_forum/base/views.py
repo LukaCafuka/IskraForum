@@ -6,8 +6,8 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from .models import Thread, Category
 from django.contrib.auth.models import User
-from .forms import ThreadForm
-from .forms import RegisterUserForm
+from .forms import ThreadForm, RegisterUserForm
+from django.db.models import Q
 # Create your views here.
 def register_user (request):
     if request.method == "POST":
@@ -53,8 +53,9 @@ def login_user(request):
     context = {}
     return render(request, 'base/login.html', context)
 
-def home (request):
-    threads = Thread.objects.all()
+def home(request):
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    threads = Thread.objects.filter(Q(category__name__icontains=q) | Q(title__icontains=q) |  Q(uploader__username__icontains=q))
     users = User.objects.all()
     categories = Category.objects.all()
     context = {

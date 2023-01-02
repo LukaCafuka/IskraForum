@@ -95,6 +95,11 @@
         width: calc(100%) !important;
         //margin-bottom: -8vh !important;
       }
+      .form-control, .form-select {
+        background-color: #0e1216 !important;
+        color: white !important;
+        border: solid 1px #444444 !important;
+    }
     </style>
     <link rel="stylesheet" href="{% static 'base/css/bootstrap.css' %}">
     <title>{% block title %}{% endblock title %}</title>
@@ -108,19 +113,21 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
+            <ul class="navbar-nav ms-auto d-flex justify-content-between">
+              <form class="d-flex justify-content-center align-items-center" role="search" method="GET" action="{% url 'home' %}">
+                <input class="form-control me-2" type="search" placeholder="Search" name="q" aria-label="Search">
+              </form>
+              <li class="nav-item d-flex align-items-center">
                 <a class="nav-link active" aria-current="page" href="/">Home</a>
               </li>
-                {% if user.is_authenticated %}
-                    <ul class="navbar-nav mr-2">          
-                      <li class="nav-item">
+                {% if user.is_authenticated %} 
+                      <li class="nav-item d-flex align-items-center">
                         <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">Logout</a>
                       </li>
-                      <li class="nav-item">
+                      <li class="nav-item d-flex align-items-center">
                         <a class="nav-link active" aria-current="page" href="#">Profile</a>
                       </li>
-                      <li class="nav-item">
+                      <li class="nav-item d-flex align-items-center">
                         <a class="nav-link active btn btn-primary" aria-current="page" href="{% url 'create-thread' %}">Create a thread</a>
                       </li>
                 {% else %}
