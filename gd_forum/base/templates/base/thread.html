@@ -39,7 +39,12 @@
         border-top: solid 1px #283A45 !important;
         margin: 0 !important;
     }
-    .thread-footer .post-info {
+    .comment-footer {
+        background-color: #19262F !important;
+        margin: 0 !important;
+        border: none !important;
+    }
+    .post-info {
         font-weight: 500 !important;
         letter-spacing: 1px !important;
         color: #7691AB !important;
@@ -101,7 +106,8 @@
     }
     .button-card {
         border: none !important;
-        background-image: linear-gradient(270deg, #0e1215, #1a242b22);
+        //background-image: linear-gradient(270deg, #0e1215, #1a242b22);
+        background-color: #0e1215 !important;
     }
     .container-thread {
         margin-top: 2em !important;
@@ -122,6 +128,14 @@
 
             margin: 0vh 0vw;
         }
+    }
+    .comment-form-card {
+        background-color: #141c24 !important;
+        //margin: 0vh 8.65vw;
+    }
+    .comment-card {
+        background-color: #121921 !important;
+        //margin: 0vh 8.65vw;
     }
 {% endblock css %}
 
@@ -173,5 +187,20 @@
     </div>
     </div>
     {% endif %}
+    <div class="card p-3 my-2 comment-form-card">
+        <form action="" method="POST">
+            <textarea name="" class="form-control" id="" cols="20" rows="3" placeholder="Comment on the thread"></textarea>
+            <a type="submit" class="btn btn-primary btn-sm mt-2">Comment</a>
+        </form>
+    </div>
+    <div class="card comment-card p-3 my-2">
+        <div class="card-header comment-footer d-flex justify-content-between align-items-center">
+            <h6 class="post-info m-0">luka</h6>
+            <h6 class="post-info m-0">01.01.2023 18:23</h6>
+        </div>
+        <div class="card-body">
+            <p>Text that goes here!</p>
+        </div>
+    </div>
 </div>
 {% endblock content %}

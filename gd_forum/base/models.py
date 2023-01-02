@@ -19,3 +19,12 @@ class Category(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+class Comment(models.Model):
+    text = models.TextField(max_length=700)
+    thread = models.ForeignKey("Thread", verbose_name=("Thread"), null=True, on_delete=models.CASCADE)
+    uploader = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.text[0:20])
