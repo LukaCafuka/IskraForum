@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
-from .models import Thread, Category
+from .models import Thread, Category, Comment
 from django.contrib.auth.models import User
 from .forms import ThreadForm, RegisterUserForm
 from django.db.models import Q
@@ -68,15 +68,25 @@ def home(request):
 
 def thread(request, pk):
     thread = Thread.objects.get(id=pk)
+    comments = thread.comment_set.all()
+    if request.method == 'POST':
+        comment = Comment.objects.create(
+            uploader = request.user,
+            thread = thread,
+            text = request.POST.get('text')
+        )
+        return redirect('thread', thread.id)
+
     context = {
         'thread': thread,
+        'comments': comments,
     }
     return render(request, 'base/thread.html', context)
 
 def user_view(request, name):
-    user = User.objects.get(username=name)
+    users = User.objects.get(username=name)
     context = {
-        'user': user,
+        'users': users,
     }
     return render(request, 'base/user_view.html', context)
 
@@ -131,3 +141,19 @@ def delete_thread_no_warning(request, pk):
         return redirect('home')
     else:
         return redirect('thread', thread.id)
+
+@login_required(login_url='login')
+def delete_comment_no_warning(request, pk):
+    comment = Comment.objects.get(id=pk)
+    if request.user == comment.uploader:
+        comment.delete()
+        return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        return redirect('home')
+
+@login_required(login_url='login')
+def edit_username(request, name):
+    user = User.objects.get(username=name)
+    if request.method == 'POST':
+        user.save()
+        return redirect(request.META.get('HTTP_REFERER'))

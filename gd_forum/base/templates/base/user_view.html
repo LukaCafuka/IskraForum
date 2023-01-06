@@ -4,14 +4,76 @@
 {% block title %}User {{user.username}}{% endblock title %}
 
 {% block css %}
-body {
-    color: #dddddd !important;
-}
+    body {
+        color: #dddddd !important;
+    }
+    .form-control {
+        background-color: #0e1216 !important;
+        color: white !important;
+        border: solid 1px #444444 !important;
+    }
+    .card {
+        background-color: #192129 !important;
+        margin: 2vh 12vw;
+        padding: 2vw 3vh !important;
+    }
+    .btn-success {
+        font-weight: 500 !important;
+        color: #222222 !important;
+        background-color: #6FAAD6 !important;
+        border-color: #6FAAD6 !important;
+        margin: .7em 0 0em 0!important;
+        font-weight: 700 !important;
+        font-size: 1.2em !important;
+    }
+    .btn-success:hover {
+        background-color: #95D6FF !important;
+    }
+    @media (max-width: 767px) {
+        .btn-success {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            width: 100% !important;
+            margin-bottom: 2em !important;
+            font-size: 1.2em !important;
+        }
+        .wrap {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+        }
+        .register {
+            margin: .5em 0 !important;
+        }
+        .card {
+            background-color: #192129 !important;
+            margin: 2vh 3vw;
+            padding: 2vw 3vh !important;
+        }
+    }
 {% endblock css %}
 
 {% block content %}
 <div class="container">
-    <h1>{{user.username}}</h1>
+    <div class="wrap d-flex justify-content-center my-4">
+        <h1>{{users.username}}</h1>
+    </div>
+    {% if request.user == users %}
+    <div class="card">
+        <h4>Change your username</h4>
+        <form method="POST" action="" class="register-form">
+            {% csrf_token %}
+            <div class="mb-3 form-floating">
+                <input type="text" name="username" id="floatingInput" placeholder="username" class="form-control">
+                <label for="floatingInput" class="form-label">New username</label>
+            </div>
+            <div class="wrap">
+                <button class="btn btn-success" type="submit">Update</button>
+            </div>
+        </form>
+    </div>    
+    {% endif %}
 </div>
 
 {% endblock content %}

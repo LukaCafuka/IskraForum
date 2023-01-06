@@ -43,6 +43,7 @@
         background-color: #19262F !important;
         margin: 0 !important;
         border: none !important;
+        border-radius: 7px !important;
     }
     .post-info {
         font-weight: 500 !important;
@@ -153,7 +154,7 @@
           <p class="card-text thread-text">{{ thread.description }}</p>
         </div>
         <div class="card-footer thread-footer d-flex align-items-center justify-content-between">
-             <span class="post-info">Posted on {{ thread.created|date:'d.m.Y H:i' }} by <a href="/user/{{thread.uploader.username}}" class="thread-user-link"> {{thread.uploader.username}} </a> </span> <a class="category" href="#category"> {{thread.category.name}} </a>
+             <span class="post-info">Posted on {{ thread.created|date:'d.m.Y H:i' }} by <a href="/user/{{thread.uploader.username}}" class="thread-user-link"> {{thread.uploader.username}} </a> </span> <a class="category" href="{% url 'home' %}?q={{thread.category.name}}"> {{thread.category.name}} </a>
         </div>
     </div>
     {% if request.user == thread.uploader %}
@@ -162,7 +163,7 @@
 
             
             <div class="btn-section d-flex justify-content-start align-items-center">
-                <a href="{% url 'delete-thread' thread.id %}" class="btn btn-danger btn-sm m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete</a>
+                <a href="{% url 'delete-thread' thread.id %}" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-trash"></i></a>
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
@@ -180,27 +181,55 @@
                       </div>
                     </div>
                   </div>
-                <a href="{% url 'edit-thread' thread.id %}" class="btn btn-warning btn-sm m-1">Edit</a>
+                <a href="{% url 'edit-thread' thread.id %}" class="btn btn-secondary m-1"><i class="fa-solid fa-pen-to-square"></i></a>
             </div>
            
 
     </div>
     </div>
     {% endif %}
-    <div class="card p-3 my-2 comment-form-card">
-        <form action="" method="POST">
-            <textarea name="" class="form-control" id="" cols="20" rows="3" placeholder="Comment on the thread"></textarea>
-            <a type="submit" class="btn btn-primary btn-sm mt-2">Comment</a>
-        </form>
-    </div>
-    <div class="card comment-card p-3 my-2">
-        <div class="card-header comment-footer d-flex justify-content-between align-items-center">
-            <h6 class="post-info m-0">luka</h6>
-            <h6 class="post-info m-0">01.01.2023 18:23</h6>
+    {% if request.user.is_authenticated %}
+        <div class="card p-3 my-2 comment-form-card">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <textarea name="text" class="form-control" id="" cols="20" rows="3" placeholder="Comment on the thread"></textarea>
+                <button type="submit" name="submit" class="btn btn-primary btn-sm mt-2"><i class="fa-solid fa-paper-plane"></i> Comment</button>
+            </form>
         </div>
-        <div class="card-body">
-            <p>Text that goes here!</p>
+    {% endif %}
+    {% for comment in comments reversed %}
+        <div class="card comment-card p-3 my-2">
+            <div class="card-header comment-footer d-flex justify-content-between align-items-center">
+                <h6 class="post-info m-0">{{comment.uploader.username}}</h6>
+                <h6 class="post-info m-0">{{comment.created|timesince}} ago</h6>
+            </div>
+            <div class="card-body">
+                <p>{{comment.text}}</p>
+            </div>
+            {% if request.user == comment.uploader %}
+            <div class="d-flex justify-content-end align-items-center">
+                <a href="" class="btn btn-danger btn-sm m-1" data-bs-toggle="modal" data-bs-target="#exampleModal2"><i class="fa-solid fa-trash"></i></a>
+                <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Are you sure you want to delete "{{comment.text}}"?</h1>
+                          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          You cannot undo this action!
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Go back</button>
+                          <a type="button" class="btn btn-danger" href="{% url 'delete-comment' comment.id %}">Delete</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <a href="{% url 'edit-thread' thread.id %}" class="btn btn-warning btn-sm m-1"><i class="fa-solid fa-pen-to-square"></i></a> -->
+            </div>
+            {% endif %}
         </div>
-    </div>
+    {% endfor %}
 </div>
 {% endblock content %}
