@@ -163,8 +163,8 @@
 
             
             <div class="btn-section d-flex justify-content-start align-items-center">
-                <a href="{% url 'delete-thread' thread.id %}" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-trash"></i></a>
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <a href="{% url 'delete-thread' thread.id %}" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#threadModal"><i class="fa-solid fa-trash"></i></a>
+                <div class="modal fade" id="threadModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
@@ -208,8 +208,8 @@
             </div>
             {% if request.user == comment.uploader %}
             <div class="d-flex justify-content-end align-items-center">
-                <a href="" class="btn btn-danger btn-sm m-1" data-bs-toggle="modal" data-bs-target="#exampleModal2"><i class="fa-solid fa-trash"></i></a>
-                <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                <a href="" class="btn btn-danger btn-sm m-1" data-bs-toggle="modal" data-bs-target="#commentModal{{comment.id}}"><i class="fa-solid fa-trash"></i></a>
+                <div class="modal fade" id="commentModal{{comment.id}}" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
