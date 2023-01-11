@@ -1,0 +1,22 @@
+{% extends 'base/base.html' %}
+
+{% block title %}{{user.username}}{% endblock title %}
+
+{% block css %}
+
+
+{% endblock css %}
+
+{% block content %}
+    <div class="container">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="mb-3 form-floating">
+                {{form.username}}
+                <label for="floatingInput" class="form-label">New username</label>
+            </div>
+            <input type="submit" value="Update" class="btn btn-success">
+        </form>
+    </div>
+
+{% endblock content %}

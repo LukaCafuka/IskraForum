@@ -11,6 +11,6 @@ urlpatterns = [
     path('edit-thread/<str:pk>/', views.edit_thread, name="edit-thread"),
     path('delete-thread/<str:pk>/', views.delete_thread_no_warning, name="delete-thread"),
     path('delete-comment/<str:pk>/', views.delete_comment_no_warning, name="delete-comment"),
-    path('edit-username/<str:pk>/', views.edit_username, name="edit-username"),
+    path('edit-username/<str:name>/', views.edit_username, name="edit-username"),
     path('login/', views.login_user, name="login"),
 ]

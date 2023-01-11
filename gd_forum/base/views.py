@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.contrib.auth.forms import UserCreationForm 
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from .models import Thread, Category, Comment
 from django.contrib.auth.models import User
-from .forms import ThreadForm, RegisterUserForm
+from .forms import ThreadForm, RegisterUserForm, ChangeUsernameForm
 from django.db.models import Q
 # Create your views here.
 def register_user (request):
@@ -85,8 +85,10 @@ def thread(request, pk):
 
 def user_view(request, name):
     users = User.objects.get(username=name)
+    threads = users.thread_set.all()
     context = {
         'users': users,
+        'threads': threads,
     }
     return render(request, 'base/user_view.html', context)
 
@@ -96,8 +98,10 @@ def create_thread(request):
     if request.method == 'POST':
         form = ThreadForm(request.POST)
         if form.is_valid:
-            formID = form.save()
-            return redirect('home')
+            thread = form.save(commit=False)
+            thread.uploader = request.user
+            thread.save()
+            return redirect('thread', thread.id)
     context = {
         'form': form,
 
@@ -153,14 +157,21 @@ def delete_comment_no_warning(request, pk):
 
 @login_required(login_url='login')
 def edit_username(request, name):
-    user_name = User.objects.get(username=name)
-    context = {
-        'user_name': user_name,
-    }
+    users = User.objects.get(username=name)
     if request.method == 'POST':
-        if request.user == user_name:
-            user_name.save()
-            return redirect(request.META.get('HTTP_REFERER'))
+        form = ChangeUsernameForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Username changed successfully!')
+            return redirect('home')
         else:
-            return redirect(request.META.get('HTTP_REFERER'))
-    return render(request, 'base/edit_user.html', context)
+            messages.error(request, 'This username already exists!')
+
+    else:
+        form = ChangeUsernameForm(instance=request.user)
+        context = {
+            'users': users,
+            'form': form,
+        }
+        return render(request, 'base/edit_user.html', context)
+    return redirect('edit-username', users.username)

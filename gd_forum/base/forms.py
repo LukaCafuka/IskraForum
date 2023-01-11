@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from .models import Thread
@@ -10,6 +10,7 @@ class ThreadForm(ModelForm):
     class Meta:
         model = Thread
         fields = '__all__'
+        exclude = ['created', 'uploader']
     def __init__(self, *args, **kwargs):
         super(ThreadForm, self).__init__(*args, **kwargs)
 
@@ -20,8 +21,6 @@ class ThreadForm(ModelForm):
         self.fields['description'].widget.attrs['placeholder'] = 'description'
         self.fields['description'].widget.attrs['cols'] = '8'
         self.fields['description'].widget.attrs['id'] = 'floatingInput'
-        self.fields['uploader'].widget.attrs['class'] = 'form-select'
-        self.fields['uploader'].widget.attrs['id'] = 'floatingInput'
         self.fields['category'].widget.attrs['class'] = 'form-select'
         self.fields['category'].widget.attrs['id'] = 'floatingInput'
         
@@ -44,13 +43,13 @@ class RegisterUserForm(UserCreationForm):
         self.fields['password2'].widget.attrs['placeholder'] = 'password confirmation'
         self.fields['password2'].widget.attrs['id'] = 'floatingInput'
 
-class ChangeUsernameForm(UserCreationForm):
+class ChangeUsernameForm(UserChangeForm):
     class Meta:
         model = User
         fields = ('username', )
 
     def __init__(self, *args, **kwargs):
-        super(RegisterUserForm, self).__init__(*args, **kwargs)
+        super(ChangeUsernameForm, self).__init__(*args, **kwargs)
         self.fields['username'].widget.attrs['class'] = 'form-control'
         self.fields['username'].widget.attrs['placeholder'] = 'username'
         self.fields['username'].widget.attrs['id'] = 'floatingInput'
