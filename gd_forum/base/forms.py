@@ -43,3 +43,14 @@ class RegisterUserForm(UserCreationForm):
         self.fields['password2'].widget.attrs['class'] = 'form-control'
         self.fields['password2'].widget.attrs['placeholder'] = 'password confirmation'
         self.fields['password2'].widget.attrs['id'] = 'floatingInput'
+
+class ChangeUsernameForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ('username', )
+
+    def __init__(self, *args, **kwargs):
+        super(RegisterUserForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['class'] = 'form-control'
+        self.fields['username'].widget.attrs['placeholder'] = 'username'
+        self.fields['username'].widget.attrs['id'] = 'floatingInput'

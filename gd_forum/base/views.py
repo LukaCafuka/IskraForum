@@ -153,7 +153,14 @@ def delete_comment_no_warning(request, pk):
 
 @login_required(login_url='login')
 def edit_username(request, name):
-    user = User.objects.get(username=name)
+    user_name = User.objects.get(username=name)
+    context = {
+        'user_name': user_name,
+    }
     if request.method == 'POST':
-        user.save()
-        return redirect(request.META.get('HTTP_REFERER'))
+        if request.user == user_name:
+            user_name.save()
+            return redirect(request.META.get('HTTP_REFERER'))
+        else:
+            return redirect(request.META.get('HTTP_REFERER'))
+    return render(request, 'base/edit_user.html', context)
