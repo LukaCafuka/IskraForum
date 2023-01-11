@@ -1,6 +1,8 @@
 {% extends 'base/base.html' %}
 
-{% block title %}{{user.username}}{% endblock title %}
+{% load static %}
+
+{% block title %}Change password{% endblock title %}
 
 {% block css %}
     h1,
@@ -39,7 +41,6 @@
         align-items: center !important;
     }
     .btn-success {
-        font-weight: 500 !important;
         color: #222222 !important;
         background-color: #6FAAD6 !important;
         border-color: #6FAAD6 !important;
@@ -50,8 +51,15 @@
     .btn-success:hover {
         background-color: #95D6FF !important;
     }
-    .text-user-change {
+    .help-password p, .help-email {
+        color: #999999 !important;
+        font-weight: 300 !important;
+        font-size: .9rem !important;
+        margin-bottom: 0em !important; 
+    }
+    .text-pass-change {
         color: #dddddd !important;
+        font-weight: 800 !important;
     }
     @media (max-width: 767px) {
         .btn-success {
@@ -82,23 +90,40 @@
 
 {% endblock css %}
 
+
 {% block content %}
+
     <div class="container">
         <div class="card mt-5">
             <div class="wrap">
-                <h2 class="text-user-change register">Change your username</h2>
+                <h1 class="text-pass-change register">Change your password</h1>
             </div>
             <form action="" method="POST">
                 {% csrf_token %}
                 <div class="mb-3 form-floating">
-                    {{form.username}}
-                    <label for="floatingInput" class="form-label">New username</label>
+                    {{form.old_password}}
+                    <label for="floatingInput" class="form-label">Old password</label>
                 </div>
-                <div class="warp d-flex justify-content-center">
+                <div class="mb-3 form-floating">
+                    {{form.new_password1}}
+                    <label for="floatingInput" class="form-label">New password</label>
+                    <div id="passwordHelpBlock" class="form-text help-password">
+                        <p>Your password can't be similar to you other information</p>
+                        <p>It must contain at least 8 characters</p>
+                        <p>It can't be a commmonly used password</p>
+                        <p>Your password can't be entirely numeric</p>
+                    </div>
+                </div>
+                <div class="mb-3 form-floating">
+                    {{form.new_password2}}
+                    <label for="floatingInput" class="form-label">Repeat new password</label>
+                </div>
+                <div class="wrap">
                     <input type="submit" value="Update" class="btn btn-success register">
                 </div>
             </form>
         </div>
+
     </div>
 
 {% endblock content %}

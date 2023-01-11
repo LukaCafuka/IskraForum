@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from .models import Thread
@@ -53,3 +53,19 @@ class ChangeUsernameForm(UserChangeForm):
         self.fields['username'].widget.attrs['class'] = 'form-control'
         self.fields['username'].widget.attrs['placeholder'] = 'username'
         self.fields['username'].widget.attrs['id'] = 'floatingInput'
+
+class ChangePasswordForm(PasswordChangeForm):
+    class Meta:
+        model = User
+        fields = '__all__'
+    def __init__(self, *args, **kwargs):
+        super(ChangePasswordForm, self).__init__(*args, **kwargs)
+        self.fields['old_password'].widget.attrs['class'] = 'form-control'
+        self.fields['old_password'].widget.attrs['placeholder'] = 'old password'
+        self.fields['old_password'].widget.attrs['id'] = 'floatingInput'
+        self.fields['new_password1'].widget.attrs['class'] = 'form-control'
+        self.fields['new_password1'].widget.attrs['placeholder'] = 'new password'
+        self.fields['new_password1'].widget.attrs['id'] = 'floatingInput'
+        self.fields['new_password2'].widget.attrs['class'] = 'form-control'
+        self.fields['new_password2'].widget.attrs['placeholder'] = 'new password'
+        self.fields['new_password2'].widget.attrs['id'] = 'floatingInput'

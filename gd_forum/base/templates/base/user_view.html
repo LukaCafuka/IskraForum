@@ -92,6 +92,10 @@
     .thread-footer .category {
         margin-left: auto;
     }
+    .threads-by-user {
+        margin-bottom: 0 !important;
+        margin-top: .4em !important;
+    }
     @media (max-width: 767px) {
         .btn-success {
             display: flex !important;
@@ -101,6 +105,9 @@
             margin-bottom: 2em !important;
             font-size: 1.2em !important;
         }
+        .card-thread {
+            margin: 0 !important;
+        }
         .wrap {
             display: flex !important;
             justify-content: center !important;
@@ -108,6 +115,9 @@
         }
         .register {
             margin: .5em 0 !important;
+        }
+        .threads-by-user {
+            margin-bottom: .6em !important;
         }
         .card-edit-username {
             background-color: #192129 !important;
@@ -119,28 +129,25 @@
 
 {% block content %}
 <div class="container container-user">
-    <div class="wrap d-flex justify-content-center my-4">
+    <div class="wrap d-flex justify-content-center mt-4">
         <h1>{{users.username}}</h1>
     </div>
     {% if request.user == users %}
-        <div class="wrap d-flex justify-content-center my-4">
-            <a href="{% url 'edit-username' user.username %}" class="btn btn-secondary btn-lg">Change username</a>
+        <div class="wrap d-flex justify-content-center my-1 align-items-center flex-column">
+            <a href="{% url 'edit-username' %}" class="btn btn-secondary ">Change username</a>
+            <a href="{% url 'change-password' %}" class="btn btn-danger  m-2">Change password</a>
         </div>
-<!--   <div class="card card-edit-username">
-        <h4>Change your username</h4>
-        <form method="POST" action="" class="register-form">
-            {% csrf_token %}
-            <div class="mb-3 form-floating">
-                <input type="text" name="username" id="floatingInput" placeholder="username" class="form-control">
-                <label for="floatingInput" class="form-label">New username</label>
-            </div>
-            <div class="wrap">
-                <button class="btn btn-success" type="submit">Update</button>
-            </div>
-        </form>
-    </div>  
-    -->  
     {% endif %}
+    {% if not threads %}
+        <div class="wrap d-flex justify-content-center mt-5">
+            <h4 class="threads-by-user">{{users.username}} has not made any threads</h4>
+        </div>
+    {% else %}
+        <div class="wrap d-flex justify-content-center mt-5">
+            <h4 class="threads-by-user">Newest threads by {{users.username}}</h4>
+        </div>
+    {% endif %}
+
     {% for thread in threads reversed %}
         <div class="card card-thread mb-2">
             

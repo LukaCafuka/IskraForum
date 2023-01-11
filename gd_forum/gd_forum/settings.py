@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'gd_forum.middleware.OnlineNowMiddleware',
 ]
 
 ROOT_URLCONF = 'gd_forum.urls'

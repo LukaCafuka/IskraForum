@@ -6,8 +6,10 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from .models import Thread, Category, Comment
 from django.contrib.auth.models import User
-from .forms import ThreadForm, RegisterUserForm, ChangeUsernameForm
+from .forms import ThreadForm, RegisterUserForm, ChangeUsernameForm, ChangePasswordForm
 from django.db.models import Q
+from gd_forum.middleware import OnlineNowMiddleware
+
 # Create your views here.
 def register_user (request):
     if request.method == "POST":
@@ -56,7 +58,7 @@ def login_user(request):
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
     threads = Thread.objects.filter(Q(category__name__icontains=q) | Q(title__icontains=q) |  Q(uploader__username__icontains=q))
-    users = User.objects.all()
+    users = request.online_now
     categories = Category.objects.all()
     context = {
         'threads': threads,
@@ -156,8 +158,8 @@ def delete_comment_no_warning(request, pk):
         return redirect('home')
 
 @login_required(login_url='login')
-def edit_username(request, name):
-    users = User.objects.get(username=name)
+def edit_username(request):
+
     if request.method == 'POST':
         form = ChangeUsernameForm(request.POST, instance=request.user)
         if form.is_valid():
@@ -170,8 +172,25 @@ def edit_username(request, name):
     else:
         form = ChangeUsernameForm(instance=request.user)
         context = {
-            'users': users,
             'form': form,
         }
         return render(request, 'base/edit_user.html', context)
-    return redirect('edit-username', users.username)
+    return redirect('edit-username')
+
+@login_required(login_url='login')
+def change_password(request):
+    if request.method == 'POST':
+        form = ChangePasswordForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Password changed succesfully')
+            return redirect ('home')
+        else:
+            messages.error(request, 'There was an error')
+            return redirect ('home')
+    else:
+        form = ChangePasswordForm(user=request.user)
+        context = {
+            'form': form,
+        }
+        return render(request, 'base/change_pass.html', context)
