@@ -152,8 +152,8 @@
                                     <div class="card mb-2">
                                         
                                         <a href="/thread/{{thread.id}}" class="card-body thread-body">
-                                          <h5 class="card-title thread-title">{{ thread.title }}</h5>
-                                          <p class="card-text thread-text">{{ thread.description }}</p>
+                                          <h5 class="card-title thread-title">{{ thread.title|upper }}</h5>
+                                          <p class="card-text thread-text">{{ thread.description|truncatewords:50 }} </p>
                                         </a>
                                         <div class="card-footer thread-footer d-flex align-items-center justify-content-between">
                                              <span class="post-info">Posted on {{ thread.created|date:'d.m.Y H:i' }} by <a href="/user/{{thread.uploader.username}}" class="thread-user-link"> {{thread.uploader.username}} </a> </span> <a class="category" href="{% url 'home' %}?q={{thread.category.name}}"> {{thread.category.name}} </a>

@@ -36,6 +36,7 @@ def logout_user(request):
 def login_user(request):
     if request.user.is_authenticated:
         return redirect( 'home' )
+
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -44,14 +45,16 @@ def login_user(request):
             user = User.objects.get(username=username)
         except:
             messages.error(request, 'User does not exist')
+            return redirect('login')
 
         user = authenticate(request, username=username, password=password)
-        if (User is not None):
+        if user is not None:
             login(request, user)
             return redirect( 'home' )
 
         else:
-            return messages.error(request, 'Username or password are incorrect')
+            messages.error(request, 'Username or password are incorrect')
+            return redirect('login')
     context = {}
     return render(request, 'base/login.html', context)
 
