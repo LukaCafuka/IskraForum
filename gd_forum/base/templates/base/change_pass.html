@@ -1,0 +1,129 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block title %}Change password{% endblock title %}
+
+{% block css %}
+    h1,
+    form,
+    button,
+    p {
+        color: #dddddd !important;
+    }
+    .form-control, .form-select {
+        background-color: #0e1216 !important;
+        color: white !important;
+        border: solid 1px #444444 !important;
+    }
+    .card {
+        background-color: #192129 !important;
+        margin: 2vh 12.65vw;
+        padding: 2vw 3vh;
+    }
+    .form-label {
+        font-size: 1.2em !important;
+    }
+    .register {
+        font-weight: 800 !important;
+        font-size: 1.8rem !important;
+        text-align: center !important;
+    }
+    .textarea {
+        height: 200px !important;
+    }
+    .create-thread-container {
+        margin-bottom: 5em !important;
+    }
+    .wrap {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+    .btn-success {
+        color: #222222 !important;
+        background-color: #6FAAD6 !important;
+        border-color: #6FAAD6 !important;
+        margin: .7em 0 0em 0!important;
+        font-weight: 700 !important;
+        font-size: 1.2em !important;
+    }
+    .btn-success:hover {
+        background-color: #95D6FF !important;
+    }
+    .help-password p, .help-email {
+        color: #999999 !important;
+        font-weight: 300 !important;
+        font-size: .9rem !important;
+        margin-bottom: 0em !important; 
+    }
+    .text-pass-change {
+        color: #dddddd !important;
+        font-weight: 800 !important;
+    }
+    @media (max-width: 767px) {
+        .btn-success {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            width: 100% !important;
+            margin-bottom: 2em !important;
+            font-size: 1.2em !important;
+        }
+        .wrap {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+        }
+        .register {
+            margin: .5em 0 !important;
+        }
+        .card {
+            background-color: #192129 !important;
+            margin: 2vh 3.65vw;
+            padding: 0vh 3vw;
+        }
+        .mt-5{
+            margin-top: 1rem !important;
+        }
+    }
+
+{% endblock css %}
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="card mt-5">
+            <div class="wrap">
+                <h1 class="text-pass-change register">Change your password</h1>
+            </div>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="mb-3 form-floating">
+                    {{form.old_password}}
+                    <label for="floatingInput" class="form-label">Old password</label>
+                </div>
+                <div class="mb-3 form-floating">
+                    {{form.new_password1}}
+                    <label for="floatingInput" class="form-label">New password</label>
+                    <div id="passwordHelpBlock" class="form-text help-password">
+                        <p>Your password can't be similar to you other information</p>
+                        <p>It must contain at least 8 characters</p>
+                        <p>It can't be a commmonly used password</p>
+                        <p>Your password can't be entirely numeric</p>
+                    </div>
+                </div>
+                <div class="mb-3 form-floating">
+                    {{form.new_password2}}
+                    <label for="floatingInput" class="form-label">Repeat new password</label>
+                </div>
+                <div class="wrap">
+                    <input type="submit" value="Update" class="btn btn-success register">
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+{% endblock content %}

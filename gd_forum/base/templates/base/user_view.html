@@ -4,14 +4,162 @@
 {% block title %}User {{user.username}}{% endblock title %}
 
 {% block css %}
-body {
-    color: #dddddd !important;
-}
+    body {
+        color: #dddddd !important;
+    }
+    .container-user {
+        padding-bottom: 5em !important;
+    }
+    .form-control {
+        background-color: #0e1216 !important;
+        color: white !important;
+        border: solid 1px #444444 !important;
+    }
+    .card-edit-username {
+        background-color: #192129 !important;
+        margin: 2vh 12vw;
+        padding: 2vw 3vh !important;
+    }
+    .card-thread {
+        background-color: #192129 !important;
+        margin: 1vh 12vw;
+    }
+    .btn-success {
+        font-weight: 500 !important;
+        color: #222222 !important;
+        background-color: #6FAAD6 !important;
+        border-color: #6FAAD6 !important;
+        margin: .7em 0 0em 0!important;
+        font-weight: 700 !important;
+        font-size: 1.2em !important;
+    }
+    .btn-success:hover {
+        background-color: #95D6FF !important;
+    }
+    .thread-body {
+        text-decoration: none !important;
+        color: #dddddd !important;
+        cursor: pointer !important;
+    }
+    .card .card-footer .thread-user-link {
+        text-decoration: none !important;
+        color: #79A1C9 !important;
+        border-radius: 6px !important;
+        //padding: .2em .1em !important;
+    }
+    .card .card-footer .thread-user-link:hover {
+        text-decoration: underline !important;
+    }
+    .container-home {
+        margin-bottom: 5em !important;
+    }
+    .thread-title {
+        margin: .4em 0 1em 0 !important;
+        font-weight: 700 !important;
+        font-size: 1.35em !important;
+    }
+    .thread-text {
+        //background-color: #233543 !important;
+        //padding: 1em .8em;
+        color: #dddddd !important;
+        border-radius: 7px !important;
+        font-size: .95em !important;
+        font-weight: 400 !important;
+    }
+    .thread-footer {     
+        background-image: linear-gradient(360deg, #151c2311, #293d4d66);
+        background-color: #151c23 !important;
+        border-top: solid 1px #283A45 !important;
+        margin: 0 !important;
+    }
+    .thread-footer .post-info {
+        font-weight: 500 !important;
+        letter-spacing: 1px !important;
+        color: #7691AB !important;
+    }
+    .thread-footer .category {
+        color: #dddddd !important;
+        font-weight: 200 !important;
+        background-image: linear-gradient(90deg, #6789AB22, #7197BD44);
+        padding: 0em 1em !important;
+        margin: 0 !important;
+        border-radius: 500px !important;
+        text-decoration: none !important;
+    }
+    .thread-footer .category:hover {
+        background-image: linear-gradient(90deg, #6789AB44, #7197BD66);
+    }
+    .thread-footer .category {
+        margin-left: auto;
+    }
+    .threads-by-user {
+        margin-bottom: 0 !important;
+        margin-top: .4em !important;
+    }
+    @media (max-width: 767px) {
+        .btn-success {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            width: 100% !important;
+            margin-bottom: 2em !important;
+            font-size: 1.2em !important;
+        }
+        .card-thread {
+            margin: 0 !important;
+        }
+        .wrap {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+        }
+        .register {
+            margin: .5em 0 !important;
+        }
+        .threads-by-user {
+            margin-bottom: .6em !important;
+        }
+        .card-edit-username {
+            background-color: #192129 !important;
+            margin: 2vh 3vw;
+            padding: 2vw 3vh !important;
+        }
+    }
 {% endblock css %}
 
 {% block content %}
-<div class="container">
-    <h1>{{user.username}}</h1>
+<div class="container container-user">
+    <div class="wrap d-flex justify-content-center mt-4">
+        <h1>{{users.username}}</h1>
+    </div>
+    {% if request.user == users %}
+        <div class="wrap d-flex justify-content-center my-1 align-items-center flex-column">
+            <a href="{% url 'edit-username' %}" class="btn btn-secondary ">Change username</a>
+            <a href="{% url 'change-password' %}" class="btn btn-danger  m-2">Change password</a>
+        </div>
+    {% endif %}
+    {% if not threads %}
+        <div class="wrap d-flex justify-content-center mt-5">
+            <h4 class="threads-by-user">{{users.username}} has not made any threads</h4>
+        </div>
+    {% else %}
+        <div class="wrap d-flex justify-content-center mt-5">
+            <h4 class="threads-by-user">Newest threads by {{users.username}}</h4>
+        </div>
+    {% endif %}
+
+    {% for thread in threads reversed %}
+        <div class="card card-thread mb-2">
+            
+            <a href="{% url 'thread' thread.id %}" class="card-body thread-body">
+                <h5 class="card-title thread-title">{{ thread.title }}</h5>
+                <p class="card-text thread-text">{{ thread.description }}</p>
+            </a>
+            <div class="card-footer thread-footer d-flex align-items-center justify-content-between">
+                    <span class="post-info">Posted on {{ thread.created|date:'d.m.Y H:i' }} by <a href="/user/{{thread.uploader.username}}" class="thread-user-link"> {{thread.uploader.username}} </a> </span> <a class="category" href="{% url 'home' %}?q={{thread.category.name}}"> {{thread.category.name}} </a>
+            </div>
+        </div>
+    {% endfor %}
 </div>
 
 {% endblock content %}

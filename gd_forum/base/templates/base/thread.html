@@ -7,14 +7,229 @@
     body {
         color: #dddddd !important;
     }
+    .thread-body {
+        text-decoration: none !important;
+        color: #dddddd !important;
+        padding: .7em 1em !important;
+    }
+    .card .card-footer .thread-user-link {
+        text-decoration: none !important;
+        color: #79A1C9 !important;
+        border-radius: 6px !important;
+        //padding: .2em .1em !important;
+    }
+    .card .card-footer .thread-user-link:hover {
+        text-decoration: underline !important;
+    }
+    .thread-title {
+        font-weight: 700 !important;
+        font-size: 1.35em !important;
+    }
+    .thread-text {
+        //background-color: #233543 !important;
+        //padding: 1em .8em;
+        color: #dddddd !important;
+        border-radius: 7px !important;
+        font-size: .95em !important;
+        font-weight: 400 !important;
+    }
+    .thread-footer {     
+        background-image: linear-gradient(360deg, #151c2311, #293d4d66);
+        background-color: #151c23 !important;
+        border-top: solid 1px #283A45 !important;
+        margin: 0 !important;
+    }
+    .comment-footer {
+        background-color: #19262F !important;
+        margin: 0 !important;
+        border: none !important;
+        border-radius: 7px !important;
+    }
+    .post-info {
+        font-weight: 500 !important;
+        letter-spacing: 1px !important;
+        color: #7691AB !important;
+    }
+    .thread-footer .category {
+        color: #dddddd !important;
+        font-weight: 200 !important;
+        background-image: linear-gradient(90deg, #6789AB22, #7197BD44);
+        padding: 0em 1em !important;
+        margin: 0 !important;
+        border-radius: 500px !important;
+        text-decoration: none !important;
+    }
+    .thread-footer .category:hover {
+        background-image: linear-gradient(90deg, #6789AB44, #7197BD66);
+    }
+    .thread-footer .category {
+        margin-left: auto;
+    }
+    .thread-header {
+        padding: 1.5em 1em !important;
+
+    }
+    .thread-header h5 {
+        margin: 0 !important;
+        font-weight: 500 !important;
+    }
+    .comm-list .comm-title {
+        font-weight: 400 !important;
+    }
+    .comm-list .comm {
+        cursor: pointer !important;
+        text-decoration: none !important;
+    }
+    .card {
+        background-color: #19242e !important;
+        text-decoration: none;
+        color: #dddddd !important;
+        margin: 0vh 7.65vw;
+    }
+    .card .comm-desc {
+        font-size: .8em !important;
+    }
+    .card .comn-title {
+        font-weight: 700 !important;
+        font-size: 1.23em !important;
+    }
+    .card .comm-header {
+        font-size: .9em !important;
+        color: #7691AB !important;
+        font-weight: 400 !important;
+        background-image: linear-gradient(180deg, #151c2311, #293d4d66);
+        border-bottom: solid 1.5px #283A45 !important;
+        letter-spacing: 2px !important;
+        text-align: center !important;
+    }
+    .btn-section {
+        margin: .05em .5em 0 0 !important;
+    }
+    .button-card {
+        border: none !important;
+        //background-image: linear-gradient(270deg, #0e1215, #1a242b22);
+        background-color: #0e1215 !important;
+    }
+    .container-thread {
+        margin-top: 2em !important;
+        margin-bottom: 5em !important;
+    }
+    .fade {
+        backdrop-filter: blur(10px);
+    }
+    .modal-content {
+        background-color: #192129 !important;
+    }
+    .close {
+        color: #fff; 
+        opacity: 1;
+    }
+    @media (max-width: 1199px) {
+        .card {
+
+            margin: 0vh 0vw;
+        }
+    }
+    .comment-form-card {
+        background-color: #141c24 !important;
+        //margin: 0vh 8.65vw;
+    }
+    .comment-card {
+        background-color: #121921 !important;
+        //margin: 0vh 8.65vw;
+    }
 {% endblock css %}
 
 
 
 {% block content %}
-<div class="container">
-    <h1>{{thread.title}}</h1>
-    <p>{{thread.description}}</p>
-    <h6>{{ thread.created|date:'d.m.Y H:i' }}</h6>
+<div class="container-md container-thread">
+
+    <div class="card mb-1">
+        <div class="card-header thread-header">
+            <h5 class="card-title thread-title">{{ thread.title }}</h5>
+        </div>                            
+        <div href="/thread/{{thread.id}}" class="card-body thread-body">
+
+          <p class="card-text thread-text">{{ thread.description }}</p>
+        </div>
+        <div class="card-footer thread-footer d-flex align-items-center justify-content-between">
+             <span class="post-info">Posted on {{ thread.created|date:'d.m.Y H:i' }} by <a href="/user/{{thread.uploader.username}}" class="thread-user-link"> {{thread.uploader.username}} </a> </span> <a class="category" href="{% url 'home' %}?q={{thread.category.name}}"> {{thread.category.name}} </a>
+        </div>
+    </div>
+    {% if request.user == thread.uploader %}
+    <div class="wrap d-flex justify-content-start align-items-center">
+    <div class="card button-card w-25">
+
+            
+            <div class="btn-section d-flex justify-content-start align-items-center">
+                <a href="{% url 'delete-thread' thread.id %}" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#threadModal"><i class="fa-solid fa-trash"></i></a>
+                <div class="modal fade" id="threadModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Are you sure you want to delete "{{thread.title}}"?</h1>
+                          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          You cannot undo this action!
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Go back</button>
+                          <a type="button" class="btn btn-danger" href="{% url 'delete-thread' thread.id %}">Delete</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <a href="{% url 'edit-thread' thread.id %}" class="btn btn-secondary m-1"><i class="fa-solid fa-pen-to-square"></i></a>
+            </div>
+           
+
+    </div>
+    </div>
+    {% endif %}
+    {% if request.user.is_authenticated %}
+        <div class="card p-3 my-2 comment-form-card">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <textarea name="text" class="form-control" id="" cols="20" rows="3" placeholder="Comment on the thread"></textarea>
+                <button type="submit" name="submit" class="btn btn-primary btn-sm mt-2"><i class="fa-solid fa-paper-plane"></i> Comment</button>
+            </form>
+        </div>
+    {% endif %}
+    {% for comment in comments reversed %}
+        <div class="card comment-card p-3 my-2">
+            <div class="card-header comment-footer d-flex justify-content-between align-items-center">
+                <h6 class="post-info m-0">{{comment.uploader.username}}</h6>
+                <h6 class="post-info m-0">{{comment.created|timesince}} ago</h6>
+            </div>
+            <div class="card-body">
+                <p>{{comment.text}}</p>
+            </div>
+            {% if request.user == comment.uploader %}
+            <div class="d-flex justify-content-end align-items-center">
+                <a href="" class="btn btn-danger btn-sm m-1" data-bs-toggle="modal" data-bs-target="#commentModal{{comment.id}}"><i class="fa-solid fa-trash"></i></a>
+                <div class="modal fade" id="commentModal{{comment.id}}" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Are you sure you want to delete "{{comment.text}}"?</h1>
+                          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          You cannot undo this action!
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Go back</button>
+                          <a type="button" class="btn btn-danger" href="{% url 'delete-comment' comment.id %}">Delete</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <a href="{% url 'edit-thread' thread.id %}" class="btn btn-warning btn-sm m-1"><i class="fa-solid fa-pen-to-square"></i></a> -->
+            </div>
+            {% endif %}
+        </div>
+    {% endfor %}
 </div>
 {% endblock content %}

@@ -1,0 +1,104 @@
+{% extends 'base/base.html' %}
+
+{% block title %}{{user.username}}{% endblock title %}
+
+{% block css %}
+    h1,
+    form,
+    button,
+    p {
+        color: #dddddd !important;
+    }
+    .form-control, .form-select {
+        background-color: #0e1216 !important;
+        color: white !important;
+        border: solid 1px #444444 !important;
+    }
+    .card {
+        background-color: #192129 !important;
+        margin: 2vh 12.65vw;
+        padding: 2vw 3vh;
+    }
+    .form-label {
+        font-size: 1.2em !important;
+    }
+    .register {
+        font-weight: 800 !important;
+        font-size: 1.8rem !important;
+        text-align: center !important;
+    }
+    .textarea {
+        height: 200px !important;
+    }
+    .create-thread-container {
+        margin-bottom: 5em !important;
+    }
+    .wrap {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+    .btn-success {
+        font-weight: 500 !important;
+        color: #222222 !important;
+        background-color: #6FAAD6 !important;
+        border-color: #6FAAD6 !important;
+        margin: .7em 0 0em 0!important;
+        font-weight: 700 !important;
+        font-size: 1.2em !important;
+    }
+    .btn-success:hover {
+        background-color: #95D6FF !important;
+    }
+    .text-user-change {
+        color: #dddddd !important;
+    }
+    @media (max-width: 767px) {
+        .btn-success {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            width: 100% !important;
+            margin-bottom: 2em !important;
+            font-size: 1.2em !important;
+        }
+        .wrap {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+        }
+        .register {
+            margin: .5em 0 !important;
+        }
+        .card {
+            background-color: #192129 !important;
+            margin: 2vh 3.65vw;
+            padding: 0vh 3vw;
+        }
+        .mt-5{
+            margin-top: 1rem !important;
+        }
+    }
+
+{% endblock css %}
+
+{% block content %}
+    <div class="container">
+        <div class="card mt-5">
+            <div class="wrap">
+                <h2 class="text-user-change register">Change your username</h2>
+            </div>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="mb-3 form-floating">
+                    {{form.username}}
+                    <label for="floatingInput" class="form-label">New username</label>
+                </div>
+                <div class="warp d-flex justify-content-center">
+                    <input type="submit" value="Update" class="btn btn-success register">
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock content %}
