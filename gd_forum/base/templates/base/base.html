@@ -25,8 +25,9 @@
         display: flex !important;
         flex-direction: column !important;
       }
-
-
+      .card {
+        background-color: #17202b !important;
+      }
       nav,
       footer {
           background-color: #192129 !important;
@@ -98,6 +99,9 @@
         width: calc(100%) !important;
         //margin-bottom: -8vh !important;
       }
+      .accent-color {
+        color: #6FAAD6 !important;
+      }
       .form-control, .form-select {
         background-color: #0e1216 !important;
         color: white !important;
@@ -111,7 +115,7 @@
     <header>
     <nav class="navbar navbar-expand-md navbar-dark">
         <div class="container">
-          <a class="navbar-brand" href="/"><img src="{% static 'base/img/iskra3.png' %}">IskraForum</a>
+          <a class="navbar-brand" href="/"><img src="{% static 'base/img/iskra3.png' %}"><span class="accent-color">Iskra</span>Forum</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>

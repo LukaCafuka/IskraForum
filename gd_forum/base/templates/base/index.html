@@ -22,17 +22,18 @@
     }
     .card {
         background-color: #19242e !important;
+        {% comment %} background-color: #12171c !important;
+        border: solid 1px #333333 !important; {% endcomment %}
         text-decoration: none;
         color: #dddddd !important;
     }
-    .thread-list .card:hover {
+    .thread-list .card {
         transition: all 0.2s ease-in-out;
         transform: scale(1) !important;
     }
     .thread-list .card:hover {
-        background-color: #17212b !important;
+        background-color: #1b2632 !important;
         transform: scale(1.008) !important;
-        transition: all 0.2s ease-in-out;
     }
     .card .comm-desc {
         font-size: .8em !important;
@@ -61,10 +62,10 @@
         color: #dddddd !important;
         border-radius: 7px !important;
         font-size: .95em !important;
-        font-weight: 400 !important;
+        font-weight: 300 !important;
     }
     .thread-footer {     
-        background-image: linear-gradient(360deg, #151c2311, #293d4d66);
+        background-image: linear-gradient(180deg, #151c2311, #293d4d11);
         background-color: #151c23 !important;
         border-top: solid 1px #283A45 !important;
         margin: 0 !important;
@@ -78,24 +79,28 @@
         color: #dddddd !important;
         font-weight: 400 !important;
         background-image: linear-gradient(90deg, #6789AB22, #7197BD44);
-        padding: 0em 1em !important;
+        padding: 0em .4em !important;
         margin: 0 !important;
         border-radius: 6px !important;
         padding-top: .1em !important;
         text-decoration: none !important;
+        transition: all 0.5s ease;
     }
     .thread-footer .category:hover {
         background-image: linear-gradient(90deg, #6789AB44, #7197BD66);
+        transition: all 0.5s ease;
     }
     .thread-footer .category {
         margin-left: auto;
     }
     .user-list .username {
-        margin: 0 .5em !important;
+        margin: .1em .5em 0 .5em !important;
+        font-weight: 300 !important;
+        font-size: 1.1em !important;
     }
     .user-list .usr-avatar {
         border-radius: 500px !important;
-        border: solid 2px #283A45 !important;
+        {% comment %} border: solid 2px #283A45 !important; {% endcomment %}
     }
     .user-list .user {
         background-image: linear-gradient(360deg, #151c2311, #293d4d66);
@@ -120,28 +125,44 @@
     .card .comn-title {
         font-weight: 400 !important;
         font-size: 1.1em !important;
+        letter-spacing: -.5px;
         text-decoration: none !important;
         color: #dddddd !important;
     }
     .fixed-sidebar {
         
     }
+    .user {
+        transform: scale(1) !important;
+        transition: all 0.2s ease !important;
+    }
+    .user:hover {
+        transform: scale(1.02) !important;
+    }
     .card-category {
         padding: 1em !important;
+        background-image: linear-gradient(180deg, #293d4d44, #151c2311) !important;
+        {% comment %} background-color: #12171c !important;
+        border: solid 1px #333333 !important; {% endcomment %}
     }
     .wrapper {
         transition: all 0.5s ease;
         border-radius: 6px !important;
         padding: .2em 0 !important;
+        {% comment %} background-image: linear-gradient(90deg, #6789AB00, #7197BD00); {% endcomment %}
+        background-color: #33455700 !important;
+        border-bottom: solid 2px #283A45 !important;
         
     }
     .wrapper h5 {
         margin: 0 !important;
     }
     .wrapper:hover {
-        background-image: linear-gradient(90deg, #6789AB44, #7197BD66);
+        {% comment %} background-image: linear-gradient(90deg, #6789AB44, #7197BD66); {% endcomment %}
+        background-color: #334557 !important;
         margin: .4em 0 !important;
     }
+
     .comm-list {
         {% comment %} background-color: #19242e !important; {% endcomment %}
         border-radius: 6px !important;
@@ -167,7 +188,7 @@
                             </div>
                             <div class="col-md-12 comm-list fixed-sidebar">
                                 <div class="card card-category">
-                                {% for category in categories reversed %}
+                                {% for category in categories %}
                                 <a class="category-link d-flex" href="{% url 'home' %}?q={{category.name}}">
                                     {% comment %} <div class="card-header comm-header">Category</div> {% endcomment %}
                                     <div class="wrapper p-1">
@@ -198,7 +219,7 @@
                                           <p class="card-text thread-text">{{ thread.description|truncatewords:50 }} </p>
                                         </a>
                                         <div class="card-footer thread-footer d-flex align-items-center justify-content-between">
-                                             <span class="post-info">Posted on {{ thread.created|date:'d.m.Y H:i' }} by <a href="/user/{{thread.uploader.username}}" class="thread-user-link"> {{thread.uploader.username}} </a> </span> <a class="category" href="{% url 'home' %}?q={{thread.category.name}}"> {{thread.category.name}} </a>
+                                             <span class="post-info"><a href="/user/{{thread.uploader.username}}" class="thread-user-link"> {{thread.uploader.username}} </a> - {{ thread.created|timesince }} ago </span> <a class="category" href="{% url 'home' %}?q={{thread.category.name}}"> {{thread.category.name}} </a>
                                         </div>
                                     </div>
                                     {% endfor %}
@@ -216,7 +237,7 @@
                             <div class="col-md-12 user-list">
                                 <a href="/user/{{user.username}}" class="card mb-2 user">
                                     <div class="card-body d-flex p-2 justify-content-start align-items-center">
-                                        <img class="usr-avatar" src="{% static 'base/img/avatar.png' %}" alt="" width="35px" height="35px">
+                                        <i class="fa-regular fa-user usr-avatar"></i>
                                         <p class="username">{{ user.username }}</p>
                                     </div>
                                 </a>
