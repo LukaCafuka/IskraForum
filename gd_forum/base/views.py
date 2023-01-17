@@ -62,7 +62,7 @@ def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
     threads = Thread.objects.filter(Q(category__name__icontains=q) | Q(title__icontains=q) |  Q(uploader__username__icontains=q))
     users = request.online_now
-    categories = Category.objects.all()
+    categories = Category.objects.all().order_by('name')
     context = {
         'threads': threads,
         'users': users,

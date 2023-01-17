@@ -25,15 +25,17 @@
         text-decoration: none;
         color: #dddddd !important;
     }
-    .card:hover {
+    .thread-list .card:hover {
+        transition: all 0.2s ease-in-out;
+        transform: scale(1) !important;
+    }
+    .thread-list .card:hover {
         background-color: #17212b !important;
+        transform: scale(1.008) !important;
+        transition: all 0.2s ease-in-out;
     }
     .card .comm-desc {
         font-size: .8em !important;
-    }
-    .card .comn-title {
-        font-weight: 700 !important;
-        font-size: 1.23em !important;
     }
     .card .comm-header {
         font-size: .9em !important;
@@ -48,6 +50,7 @@
         //background-color: #101518 !important; {# isključeno #}
     }
     .thread-title {
+        transition: all 0.2s ease-in-out;
         margin: .4em 0 1em 0 !important;
         font-weight: 700 !important;
         font-size: 1.35em !important;
@@ -73,11 +76,12 @@
     }
     .thread-footer .category {
         color: #dddddd !important;
-        font-weight: 200 !important;
+        font-weight: 400 !important;
         background-image: linear-gradient(90deg, #6789AB22, #7197BD44);
         padding: 0em 1em !important;
         margin: 0 !important;
-        border-radius: 500px !important;
+        border-radius: 6px !important;
+        padding-top: .1em !important;
         text-decoration: none !important;
     }
     .thread-footer .category:hover {
@@ -113,6 +117,42 @@
     .container-home {
         margin-bottom: 5em !important;
     }
+    .card .comn-title {
+        font-weight: 400 !important;
+        font-size: 1.1em !important;
+        text-decoration: none !important;
+        color: #dddddd !important;
+    }
+    .fixed-sidebar {
+        
+    }
+    .card-category {
+        padding: 1em !important;
+    }
+    .wrapper {
+        transition: all 0.5s ease;
+        border-radius: 6px !important;
+        padding: .2em 0 !important;
+        
+    }
+    .wrapper h5 {
+        margin: 0 !important;
+    }
+    .wrapper:hover {
+        background-image: linear-gradient(90deg, #6789AB44, #7197BD66);
+        margin: .4em 0 !important;
+    }
+    .comm-list {
+        {% comment %} background-color: #19242e !important; {% endcomment %}
+        border-radius: 6px !important;
+        padding 0 !important;
+        text-decoration: none !important;
+        {% comment %} padding: 1.4em;
+        margin-left: -1em !important; {% endcomment %}
+    }
+    a {
+        text-decoration: none !important;
+    }
 {% endblock css %}
 
 {% block content %}
@@ -125,17 +165,19 @@
                             <div class="col-md-12 title">
                                 <h3 class="">Categories</h3>
                             </div>
-                            <div class="col-md-12 comm-list"> {# struktura community-a #}
+                            <div class="col-md-12 comm-list fixed-sidebar">
+                                <div class="card card-category">
                                 {% for category in categories reversed %}
-                                <a class="card mb-2" href="{% url 'home' %}?q={{category.name}}">
-                                    <div class="card-header comm-header">Category</div>
-                                    <div class="card-body">
+                                <a class="category-link d-flex" href="{% url 'home' %}?q={{category.name}}">
+                                    {% comment %} <div class="card-header comm-header">Category</div> {% endcomment %}
+                                    <div class="wrapper p-1">
                                       <h5 class="card-title comn-title">{{category.name}}</h5>
-                                      <p class="card-text comm-desc">{{category.description}}</p>
+                                      {% comment %} <p class="card-text comm-desc"></p> {% endcomment %}
                                       <!-- <p>{{category.created|date:'d.m.Y H:i'}}</p> **mogućnost ispisa datuma kreiranja -->
                                     </div>
                                 </a>
                                 {% endfor %}
+                                </div>
                             </div>                            
                         </div>
                     </div>
