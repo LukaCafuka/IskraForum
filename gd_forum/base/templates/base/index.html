@@ -124,7 +124,7 @@
     }
     .card .comn-title {
         font-weight: 400 !important;
-        font-size: 1.1em !important;
+        font-size: 1.1em;
         letter-spacing: -.5px;
         text-decoration: none !important;
         color: #dddddd !important;
@@ -146,12 +146,12 @@
         border: solid 1px #333333 !important; {% endcomment %}
     }
     .wrapper {
-        transition: all 0.5s ease;
+        transition: all 0.2s ease-out;
         border-radius: 6px !important;
         padding: .2em 0 !important;
         {% comment %} background-image: linear-gradient(90deg, #6789AB00, #7197BD00); {% endcomment %}
         background-color: #33455700 !important;
-        border-bottom: solid 2px #283A45 !important;
+        border-bottom: solid 2px #283A45;
         
     }
     .wrapper h5 {
@@ -173,6 +173,21 @@
     }
     a {
         text-decoration: none !important;
+    }
+    @media (max-width: 575px) { 
+        .card-category {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+    }
+    @media (max-width: 991px) { 
+        .comn-title {
+            font-size: 1.3em !important;
+        }
+        .wrapper {
+            border-bottom: none !important;
+        }
     }
 {% endblock css %}
 
