@@ -29,11 +29,11 @@
     }
     .thread-list .card {
         transition: all 0.2s ease-in-out;
-        transform: scale(1) !important;
+        {% comment %} transform: scale(1); {% endcomment %}
     }
     .thread-list .card:hover {
         background-color: #1b2632 !important;
-        transform: scale(1.008) !important;
+        {% comment %} transform: scale(1.008); {% endcomment %}
     }
     .card .comm-desc {
         font-size: .8em !important;
@@ -227,7 +227,7 @@
 
                                 <div class="col-md-12 thread-list">
                                     {% for thread in threads reversed %}
-                                    <div class="card mb-2" data-aos="fade-down">
+                                    <div class="card mb-2" data-aos="fade-up" data-aos-offset="100">
                                         
                                         <a href="/thread/{{thread.id}}" class="card-body thread-body">
                                           <h5 class="card-title thread-title">{{ thread.title|upper }}</h5>
