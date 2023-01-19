@@ -227,7 +227,7 @@
 
                                 <div class="col-md-12 thread-list">
                                     {% for thread in threads reversed %}
-                                    <div class="card mb-2">
+                                    <div class="card mb-2" data-aos="fade-down">
                                         
                                         <a href="/thread/{{thread.id}}" class="card-body thread-body">
                                           <h5 class="card-title thread-title">{{ thread.title|upper }}</h5>
