@@ -84,7 +84,7 @@
 <div class="container create-thread-container">
     <div class="card mt-5">
     {% if user.is_authenticated %}
-    <form action="" method="POST">
+    <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {% if request.user == thread.uploader %}
         <h2 class="register">Edit a thread</h2>
@@ -102,6 +102,10 @@
         <div class="mb-3 form-floating">
             {{form.uploader}}
             <label for="floatingInput" class="form-label">Uploader</label>
+        </div>
+        <div class="mb-3">
+            
+            {{form.image}}
         </div>
         <div class="mb-3 form-floating">
             {{form.category}}

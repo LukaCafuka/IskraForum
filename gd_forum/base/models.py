@@ -8,6 +8,7 @@ class Thread(models.Model):
     uploader = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     category = models.ForeignKey("Category", verbose_name=("Category"), null=True, on_delete=models.DO_NOTHING)
     created = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(null=True, blank=True, upload_to='user_images/')
 
     def __str__(self):
         return str(self.title)

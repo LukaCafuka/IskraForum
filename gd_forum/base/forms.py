@@ -23,6 +23,9 @@ class ThreadForm(ModelForm):
         self.fields['description'].widget.attrs['id'] = 'floatingInput'
         self.fields['category'].widget.attrs['class'] = 'form-select'
         self.fields['category'].widget.attrs['id'] = 'floatingInput'
+        self.fields['image'].widget.attrs['class'] = 'form-control'
+        self.fields['image'].widget.attrs['id'] = 'formFile'
+        self.fields['image'].widget.attrs['type'] = 'file'
         
 class RegisterUserForm(UserCreationForm):
     email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'e-mail'}))

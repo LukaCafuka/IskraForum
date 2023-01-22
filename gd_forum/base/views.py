@@ -101,7 +101,7 @@ def user_view(request, name):
 def create_thread(request):
     form = ThreadForm()
     if request.method == 'POST':
-        form = ThreadForm(request.POST)
+        form = ThreadForm(request.POST, request.FILES)
         if form.is_valid:
             thread = form.save(commit=False)
             thread.uploader = request.user

@@ -29,11 +29,11 @@
     }
     .thread-list .card {
         transition: all 0.2s ease-in-out;
-        {% comment %} transform: scale(1); {% endcomment %}
+        transform: scale(1) !important; 
     }
     .thread-list .card:hover {
         background-color: #1b2632 !important;
-        {% comment %} transform: scale(1.008); {% endcomment %}
+         transform: scale(1.008) !important; 
     }
     .card .comm-desc {
         font-size: .8em !important;
@@ -53,7 +53,7 @@
     .thread-title {
         transition: all 0.2s ease-in-out;
         margin: .4em 0 1em 0 !important;
-        font-weight: 700 !important;
+        font-weight: 500 !important;
         font-size: 1.35em !important;
     }
     .thread-text {
@@ -171,6 +171,9 @@
         {% comment %} padding: 1.4em;
         margin-left: -1em !important; {% endcomment %}
     }
+    .border-img {
+        border: solid 1px #666666 !important;
+    }
     a {
         text-decoration: none !important;
     }
@@ -230,8 +233,15 @@
                                     <div class="card mb-2" data-aos="fade-up" data-aos-offset="100">
                                         
                                         <a href="/thread/{{thread.id}}" class="card-body thread-body">
+                                          <div class="d-flex justify-content-between">
+                                            <div class="wrap">
                                           <h5 class="card-title thread-title">{{ thread.title|upper }}</h5>
                                           <p class="card-text thread-text">{{ thread.description|truncatewords:50 }} </p>
+                                        </div> 
+                                          {% if thread.image %}
+                                            <img src="{{thread.image.url|default_if_none:'#'}}" width="150px" class="rounded border-img">
+                                          {% endif %}
+                                          </div> 
                                         </a>
                                         <div class="card-footer thread-footer d-flex align-items-center justify-content-between">
                                              <span class="post-info"><a href="/user/{{thread.uploader.username}}" class="thread-user-link"> {{thread.uploader.username}} </a> - {{ thread.created|timesince }} ago </span> <a class="category" href="{% url 'home' %}?q={{thread.category.name}}"> {{thread.category.name}} </a>
