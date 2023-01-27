@@ -18,8 +18,10 @@
 
       body {
         font-family: 'Fira Sans', sans-serif !important;
-        background-image: #0e1215 !important;
-        background: linear-gradient(90deg, #0e1215 0%, #13121c 35%, #080c0c 60%, #161f22 100%);
+        background-image: url({% static 'base/img/IskraForumBG3.png' %}) !important;
+        background-position: top;
+        background-size: 100%;
+        {% comment %} background: linear-gradient(90deg, #0e1215 0%, #13121c 35%, #080c0c 60%, #161f22 100%); {% endcomment %}
         background-color: #0e1215 !important;
         position: relative !important;
         min-height: 100vh !important;
