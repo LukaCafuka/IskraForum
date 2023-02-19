@@ -156,14 +156,16 @@
         </div>
       </nav>
     </header>
+    
     {% if messages %}
-      <div class="messages alert alert-dark d-flex justify-content-center container w-25 m-6">
+      <div class="messages alert alert-dark d-flex justify-content-center container w-25 mt-4">
     {% for message in messages %}
       <h6{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h6>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     {% endfor %}
       </div>
-{% endif %}
+    {% endif %}
+
     {% block content %}
     {% endblock content %}
     <script src="{% static 'base/js/bootstrap.bundle.js' %}"></script>

@@ -167,7 +167,7 @@
 
           <p class="card-text thread-text">{{ thread.description }}</p>
           {% if thread.image %}
-            <img src="{{thread.image.url|default_if_none:'#'}}" width="500px" class="rounded border-img">
+            <img src="{{thread.image.url|default_if_none:'#'}}" width="500px" height="100%" class="rounded border-img">
           {% endif %}
         </div>
         <div class="card-footer thread-footer d-flex align-items-center justify-content-between">

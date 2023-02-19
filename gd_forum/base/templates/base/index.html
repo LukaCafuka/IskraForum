@@ -239,7 +239,9 @@
                                           <p class="card-text thread-text">{{ thread.description|truncatewords:50 }} </p>
                                         </div> 
                                           {% if thread.image %}
-                                            <img src="{{thread.image.url|default_if_none:'#'}}" width="150px" class="rounded border-img">
+
+                                            <img src="{{thread.image.url|default_if_none:'#'}}" width="150px" height="100%" class="rounded border-img ms-3">
+
                                           {% endif %}
                                           </div> 
                                         </a>
