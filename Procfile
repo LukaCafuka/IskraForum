@@ -1,1 +1,0 @@
-web: gunicorn gd_forum.gd_forum.wsgi
